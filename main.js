@@ -1,0 +1,1 @@
+const KeyList = document.querySelectorAll('.tecla');
