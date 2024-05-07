@@ -6,12 +6,20 @@
 
 // Play the sound
 function PlaySound (id) {
-    document.querySelector(id).play();
-}
+    const sound = document.querySelector(id);
+
+    // Catch the exception
+    try {
+        sound.play()
+        
+    } catch (error) {
+        console.log("Pass a valid ID of an audio tag")
+        return null
+    }
+}   
 
 // Get the List
 const KeyList = document.querySelectorAll('.tecla');
-
 
 // Get the List length
 const KeyListLength = KeyList.length;
@@ -22,12 +30,32 @@ let count = 0;
 // Iterate the KeyList using while 
 for (count; count < KeyListLength; count++) {
 
-    let classElement = KeyList[count].classList[1]
+    let classElement = KeyList[count].classList[1];
 
     // Assigning the function by passing its respective ID.
     KeyList[count].onclick = function() {
         PlaySound(`#som_${classElement}`);
     };
     
-    console.log(count)
+    // Print the current value
+    console.log(count);
+
+    // Get the key 
+    let key = KeyList[count];
+
+    // Track if the key was pressed
+    key.onkeydown = function (event) {
+
+        //console.log(event.code == 'Space')
+
+        // Check the event code are expected;
+        if (event.code === 'Space' || event.code === 'Enter') {
+            key.classList.add('ativa');
+        }
+    }
+
+    // Track if the key was released
+    key.onkeyup = function () {
+        key.classList.remove('ativa');
+    }
 }
